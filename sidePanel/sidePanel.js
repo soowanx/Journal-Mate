@@ -106,12 +106,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    summaryBtn.addEventListener('click', () => {
+    summaryBtn.addEventListener('click', async () => {
         const selectedToggle = document.querySelector('.summary-toggle.active');
         const summaryLength = selectedToggle ? selectedToggle.dataset.value : 'normal';
 
         // 로딩 함수 호출
         showLoading();
+        await sleep(2000);
+        hideLoading();
 
         if (currentType === 'pdf') {
             const files = Array.from(inputArea.querySelectorAll('input[type="file"]'))
@@ -367,4 +369,9 @@ function hideLoading() {
     const loadingBox = document.getElementById('loading');
     if (!loadingBox) return;
     loadingBox.classList.add('hidden');
+}
+
+// sleep
+function sleep(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
 }
