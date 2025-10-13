@@ -1,11 +1,9 @@
 importScripts('config.js');
 
-const apiKey = OPENAI_API_KEY;
-
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     // 0. 웹페이지 요약 요청
     if (message.type === 'gpt_summary') {
-        // const apiKey = '';
+        const apiKey = OPENAI_API_KEY;
         const prompt = `다음은 사용자가 방문한 웹페이지의 본문 전체이다.
                         만약 본문이 논문, 기사, 블로그, 백과사전, 위키 등 '정보성 자료'라면, 
                         내용을 서론/본론/결론의 구조로 간결하게 요약하고 반드시 한국어로 번역하라.. 
@@ -41,6 +39,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             }),
         })
             .then(async (res) => {
+                console.log('[background] Fetch 응답 상태:', res.status, res.statusText);
                 if (!res.body) throw new Error('No response body');
                 const reader = res.body.getReader();
                 const decoder = new TextDecoder('utf-8');
@@ -62,7 +61,9 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                                     chunk: delta,
                                     accumulated: fullText,
                                 });
-                            } catch (e) {}
+                            } catch (e) {
+                                console.error('[background] JSON 파싱 오류:', e, line);
+                            }
                         }
                     });
                 }
@@ -83,7 +84,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
     // 1. PDF 파일들 다중 요약 요청
     if (message.type === 'gpt_summary_multi') {
-        // const apiKey = '';
+        const apiKey = OPENAI_API_KEY;
         message.files.forEach(async (file) => {
             const prompt = `다음 논문 내용을 서론 본론 결론의 구조로 요약하고 한국어로 번역하라. 요약 길이는 ${message.summaryLength} 수준으로 하라라:\n\n${file.text}`;
 
@@ -154,7 +155,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
     // 2. 이미 요약된 결과 비교 요청
     if (message.type === 'gpt_summary_compare') {
-        // const apiKey = '';
+        const apiKey = OPENAI_API_KEY;
         const combinedPrompt = `다음은 여러 논문(또는 PDF 파일)의 요약 결과이다.
                                 각 논문의 핵심 내용을 바탕으로, 공통점과 차이점을 항목별로 비교해서 한국어로 자세히 정리하라.
                                 공통점과 차이점 비교 결과를 도출할 때는 문단별로 줄바꿈을 하라.
