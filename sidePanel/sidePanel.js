@@ -2,6 +2,12 @@ const pdfjsLib = window['pdfjsLib'];
 pdfjsLib.GlobalWorkerOptions.workerSrc = 'pdf.worker.min.js';
 
 document.addEventListener('DOMContentLoaded', () => {
+    // 로딩 표시 제어 함수
+    const loadingBox = document.getElementById('loading');
+    if (loadingBox) {
+        loadingBox.classList.add('hidden');
+    }
+
     // URL, PDF 버튼
     const btnUrl = document.getElementById('url-summary-btn');
     const btnPdf = document.getElementById('pdf-summary-btn');
@@ -104,6 +110,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const selectedToggle = document.querySelector('.summary-toggle.active');
         const summaryLength = selectedToggle ? selectedToggle.dataset.value : 'normal';
 
+        // 로딩 함수 호출
+        showLoading();
+
         if (currentType === 'pdf') {
             const files = Array.from(inputArea.querySelectorAll('input[type="file"]'))
                 .map((input) => input.files[0])
@@ -160,7 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             showToast('페이지에서 텍스트를 추출할 수 없습니다.');
                             return;
                         }
-                        resultText.textContent = `요약 진행 중... (선택: ${summaryLength})\n탭 URL: ${url}`;
+                        resultText.textContent = `요약 진행 중...`;
                         chrome.runtime.sendMessage({
                             type: 'gpt_summary',
                             text: pageText,
@@ -336,11 +345,26 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         if (resultArea) {
             if (message.error) {
                 resultArea.innerHTML = message.result;
+                hideLoading();
             } else if (message.done) {
-                resultArea.innerHTML = `<b>요약 결과</b><div style="margin-top:5px;">${message.result}</div>`;
+                resultArea.innerHTML = `<div style="margin-top:5px;">${message.result}</div>`;
+                hideLoading();
             } else if (message.accumulated) {
-                resultArea.innerHTML = `<b>요약 결과</b><div style="margin-top:5px;">${message.accumulated}</div>`;
+                resultArea.innerHTML = `<div style="margin-top:5px;">${message.accumulated}</div>`;
             }
         }
     }
 });
+
+// 로딩
+function showLoading() {
+    const loadingBox = document.getElementById('loading');
+    if (!loadingBox) return;
+    loadingBox.classList.remove('hidden');
+}
+
+function hideLoading() {
+    const loadingBox = document.getElementById('loading');
+    if (!loadingBox) return;
+    loadingBox.classList.add('hidden');
+}
