@@ -13,7 +13,7 @@
 - 여러 문서 공통점/차이점 비교 분석
 
 ## Multi-Agent Design (3 Agents)
-
+ 
 | Agent | 역할 | 산출물 |
 |---|---|---|
 | Summarizer Agent | 문서 핵심 내용을 구조화해 요약 | 초안 요약 |
@@ -25,6 +25,12 @@
 2. Translator가 번역/표현 보정
 3. Verifier가 검증/수정
 4. 필요 시 재생성 후 최종 확정
+
+## Extension Structure
+<img src="https://github.com/user-attachments/assets/d0f5691f-7292-40fe-9df0-106124b93e84" alt="Extension Structure" width="100%" />
+
+## System Architecture
+<img src="https://github.com/user-attachments/assets/4b8ba340-4583-4828-b562-c42d290ca68f" alt="System Architecture" width="100%" />
 
 ## Model Selection
 | 모델 | 품질 | 속도 | 비용 효율 | 권장 영역 |
