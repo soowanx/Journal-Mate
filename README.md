@@ -7,6 +7,20 @@
 - 스트리밍 출력으로 결과를 실시간 확인
 - 요약 길이 선택 지원(짧게/보통/길게)
 
+## ScreenShots
+
+| URL | PDF | PDF |
+|----------|----------|----------|
+| <img src="https://github.com/user-attachments/assets/4f741913-b444-4723-b09d-373b69fc6665" width="100%"> | <img src="https://github.com/user-attachments/assets/010aedc8-99ba-449b-a345-2dfe34351aa7" width="100%"> | <img src="https://github.com/user-attachments/assets/1c595029-1da6-4000-aad5-6ef47b01a08e" width="100%"> ||
+
+| Full Page View |
+|----------|
+| <img src="https://github.com/user-attachments/assets/8b8d269d-642f-4b6b-8bcc-ef9fb59a2ff9" width="100%"> |
+
+
+
+
+
 ## Core Features
 - 현재 탭 웹페이지 본문 요약/번역
 - 다중 PDF 업로드 후 문서별 요약/번역
@@ -27,10 +41,12 @@
 4. 필요 시 재생성 후 최종 확정
 
 ## Extension Structure
-<img src="https://github.com/user-attachments/assets/d0f5691f-7292-40fe-9df0-106124b93e84" alt="Extension Structure" width="100%" />
+<img src="https://github.com/user-attachments/assets/b1e273b6-9487-4e4b-adc6-80175e877e21" alt="Extension Structure" width="100%" />
 
 ## System Architecture
-<img src="https://github.com/user-attachments/assets/4b8ba340-4583-4828-b562-c42d290ca68f" alt="System Architecture" width="100%" />
+<img src="https://github.com/user-attachments/assets/c5fe4f82-f10a-43ec-b13a-11c155c5e743" alt="System Architecture 1" width="100%" />
+<img src="https://github.com/user-attachments/assets/c69769b6-089b-4d20-aba5-b0a8432c3a86" alt="System Architecture 2" width="100%" />
+
 
 ## Model Selection
 | 모델 | 품질 | 속도 | 비용 효율 | 권장 영역 |
